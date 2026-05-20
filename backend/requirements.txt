@@ -1,0 +1,31 @@
+# ===== CORE AI / ML =====
+tensorflow==2.10.0
+numpy==1.23.5
+scipy==1.10.1
+h5py==3.8.0
+gast==0.4.0
+protobuf==3.19.6
+
+# ===== COMPUTER VISION =====
+opencv-python==4.7.0.72
+pillow==9.5.0
+
+# ===== TORCH (for ultralytics YOLO) =====
+torch==2.0.1
+torchvision==0.15.2
+
+# ===== YOLO =====
+ultralytics==8.4.22
+
+# ===== BACKEND =====
+fastapi==0.95.2
+uvicorn==0.22.0
+pydantic==1.10.13
+
+# ===== DATA =====
+pandas==1.5.3
+
+# ===== UTIL =====
+requests==2.31.0
+tqdm==4.66.1
+PyYAML==6.0
