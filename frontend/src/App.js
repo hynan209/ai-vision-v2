@@ -52,11 +52,11 @@ const severityData = [
 ];
 
 const mockCameras = [
-  { id: 'CAM-01', name: '', status: 'Online', color: 'dot-online', text: '#00ffcc' },
-  { id: 'CAM-02', name: 'QL1A - Vòng xoay', status: 'Online', color: 'dot-online', text: '#00ffcc' },
-  { id: 'CAM-03', name: 'THPT Lê Quý Đôn', status: 'Warning', color: 'dot-warning', text: '#ff9800' },
-  { id: 'CAM-04', name: 'Cầu Tân An (Bắc)', status: 'Offline', color: 'dot-offline', text: '#ff4b4b' },
-  { id: 'CAM-05', name: 'Vincom Long An', status: 'Online', color: 'dot-online', text: '#00ffcc' },
+  { id: 'CAM-01', name: 'Ngã tư Hùng Vương', status: 'Online', fps: 30.2, color: 'dot-online', text: '#00ffcc' },
+  { id: 'CAM-02', name: 'QL1A - Vòng xoay', status: 'Online', fps: 29.8, color: 'dot-online', text: '#00ffcc' },
+  { id: 'CAM-03', name: 'THPT Lê Quý Đôn', status: 'Warning', fps: 15.4, color: 'dot-warning', text: '#ff9800' },
+  { id: 'CAM-04', name: 'Cầu Tân An (Bắc)', status: 'Offline', fps: 0, color: 'dot-offline', text: '#ff4b4b' },
+  { id: 'CAM-05', name: 'Vincom Long An', status: 'Online', fps: 30.0, color: 'dot-online', text: '#00ffcc' },
 ];
 
 function DashboardPage({ sysState, fakeStats }) {
@@ -135,14 +135,12 @@ function DashboardPage({ sysState, fakeStats }) {
               <h4 style={{ margin: '8px 0 0 0', color: '#00e5ff', fontSize: '18px', fontFamily: 'var(--primary-font)' }}>16:00 - 18:00</h4>
             </div>
             <div style={{ flex: 1, background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.03)' }}>
-              <p style={{ margin: 0, fontSize: '11px', color: '#a0aec0', fontFamily: 'var(--text-font)', fontWeight: 'bold' }}>📍 ĐỊA ĐIỂM</p>
-              <h4 style={{ margin: '8px 0 0 0', color: '#ff4b4b', fontSize: '18px', fontFamily: 'var(--primary-font)' }}>
-                {sysState.location ? sysState.location.split(',')[0].toUpperCase() : 'ĐIỂM CHƯA XÁC ĐỊNH'}
-              </h4>
+              <p style={{ margin: 0, fontSize: '11px', color: '#a0aec0', fontFamily: 'var(--text-font)', fontWeight: 'bold' }}>📍 ĐIỂM ĐEN CẢNH BÁO</p>
+              <h4 style={{ margin: '8px 0 0 0', color: '#ff4b4b', fontSize: '18px', fontFamily: 'var(--primary-font)' }}>NGÃ TƯ HÙNG VƯƠNG</h4>
             </div>
             <div style={{ flex: 1, background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.03)' }}>
               <p style={{ margin: 0, fontSize: '11px', color: '#a0aec0', fontFamily: 'var(--text-font)', fontWeight: 'bold' }}>🧠 ĐỘ CHÍNH XÁC AI</p>
-              <h4 style={{ margin: '8px 0 0 0', color: '#00ffcc', fontSize: '18px', fontFamily: 'var(--primary-font)' }}>90% <span style={{fontSize: '11px', color: '#8b949e', fontFamily: 'var(--text-font)'}}>~ YOLOv8</span></h4>
+              <h4 style={{ margin: '8px 0 0 0', color: '#00ffcc', fontSize: '18px', fontFamily: 'var(--primary-font)' }}>98.5% <span style={{fontSize: '11px', color: '#8b949e', fontFamily: 'var(--text-font)'}}>~ YOLOv8</span></h4>
             </div>
           </div>
         </div>
@@ -177,7 +175,7 @@ function DashboardPage({ sysState, fakeStats }) {
                 <div className="camera-item" key={cam.id}>
                   <div className="cam-info">
                     <span className="cam-name">{cam.name}</span>
-                    <span className="cam-id">{cam.id} </span>
+                    <span className="cam-id">{cam.id} | {cam.fps} FPS</span>
                   </div>
                   <div className="cam-status">
                     <span className={`status-dot ${cam.color}`}></span>
@@ -255,25 +253,15 @@ function LiveMonitorPage({ sysState }) {
             </div>
           ) : (
             <div className="cam-grid">
-            {/* CAMERA 1 */}
-            <div className={`cam-box cam-clickable ${sysState.nodes?.["CAM-01"]?.status !== 'NORMAL' ? 'active-cam' : ''}`} onClick={() => setSelectedCam('CAM-01')}>
-                <div className="cam-label">CAM-01: Ngã Tư Hùng Vương ({sysState.nodes?.["CAM-01"]?.fps || 0} FPS)</div>
-                {sysState.is_running ? <img src="http://127.0.0.1:8000/api/video_feed/CAM-01" alt="Cam 1" className="cam-feed" /> : <div className="cam-placeholder-text">Đang nghỉ...</div>}
+              <div className={`cam-box cam-clickable ${sysState.status !== 'NORMAL' ? 'active-cam' : ''}`} onClick={() => setSelectedCam('CAM-01')}>
+                <div className="cam-label">CAM-01: Ngã Tư Hùng Vương</div>
+                {sysState.is_running ? <img src="http://127.0.0.1:8000/api/video_feed" alt="Video" className="cam-feed" /> : <div className="cam-placeholder-text">Đang nghỉ ngơi...</div>}
+              </div>
+              <div className="cam-box"><div className="cam-label"><span className="status-dot dot-online"></span> CAM-02: QL1A</div><div className="fake-scan"></div><div className="cam-placeholder-text" style={{color: '#00ffcc'}}>[ SCAN ] Tín hiệu tốt</div></div>
+              <div className="cam-box"><div className="cam-label"><span className="status-dot dot-online"></span> CAM-03: THPT LÊ QUÝ ĐÔN</div><div className="fake-scan" style={{animationDelay: '1.5s', background: 'rgba(56, 211, 159, 0.5)'}}></div><div className="cam-placeholder-text" style={{color: '#38d39f'}}>[ SCAN ] An toàn</div></div>
+              <div className="cam-box"><div className="cam-label"><span className="status-dot dot-offline"></span> CAM-04: CẦU TÂN AN</div><div className="cam-placeholder-text" style={{color: '#ff4b4b'}}>❌ SIGNAL LOST</div></div>
             </div>
-
-            {/* CAMERA 2 */}
-            <div className={`cam-box cam-clickable ${sysState.nodes?.["CAM-02"]?.status !== 'NORMAL' ? 'active-cam' : ''}`} onClick={() => setSelectedCam('CAM-02')}>
-                <div className="cam-label">CAM-02: QL1A - Vòng xoay ({sysState.nodes?.["CAM-02"]?.fps || 0} FPS)</div>
-                {sysState.is_running ? <img src="http://127.0.0.1:8000/api/video_feed/CAM-02" alt="Cam 2" className="cam-feed" /> : <div className="cam-placeholder-text">Đang nghỉ...</div>}
-            </div>
-
-            {/* CAMERA 3 */}
-            <div className={`cam-box cam-clickable ${sysState.nodes?.["CAM-03"]?.status !== 'NORMAL' ? 'active-cam' : ''}`} onClick={() => setSelectedCam('CAM-03')}>
-                <div className="cam-label">CAM-03: Tuyến Cao Tốc ({sysState.nodes?.["CAM-03"]?.fps || 0} FPS)</div>
-                {sysState.is_running ? <img src="http://127.0.0.1:8000/api/video_feed/CAM-03" alt="Cam 3" className="cam-feed" /> : <div className="cam-placeholder-text">Đang nghỉ...</div>}
-            </div>
-          </div>
-        )}
+          )}
         </div>
         
         <div className="log-section glass-card" style={{ flex: 3, padding: '15px', display: 'flex', flexDirection: 'column' }}>
@@ -282,9 +270,7 @@ function LiveMonitorPage({ sysState }) {
               <h2 className="section-header" style={{color: '#00e5ff', margin: 0}}>🔍 THÔNG SỐ AI CHI TIẾT</h2>
               <div className="glass-card" style={{padding: '12px', background: 'rgba(0,0,0,0.2)'}}>
                 <p style={{margin: '0', fontSize: '10px', color: '#8b949e', fontFamily: 'var(--text-font)'}}>VỊ TRÍ CAMERA</p>
-                <h3 style={{margin: '5px 0 0 0', fontSize: '16px'}}>
-                  {sysState.location.split(',')[0]} {/* Cắt để lấy mỗi tên đường phố */}
-                </h3>
+                <h3 style={{margin: '5px 0 0 0', fontSize: '16px'}}>NGÃ TƯ HÙNG VƯƠNG</h3>
               </div>
               
               <div className="glass-card" style={{padding: '12px', background: sysState.status !== 'NORMAL' ? 'rgba(255,75,75,0.1)' : 'rgba(0,0,0,0.2)', border: sysState.status !== 'NORMAL' ? '1px solid #ff4b4b' : 'none'}}>
@@ -478,9 +464,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const [sysState, setSysState] = useState({
-    status: 'NORMAL', police_dispatch: 'Standby', ems_dispatch: 'Standby', fps: 0.0, total_accidents: 0, incident_reports: [], logs: [], is_running: false,
-    location: 'Chờ thiết lập...',
-    nodes: {}
+    status: 'NORMAL', police_dispatch: 'Standby', ems_dispatch: 'Standby', fps: 0.0, total_accidents: 0, incident_reports: [], logs: [], is_running: false
   });
 
   const [fakeReports, setFakeReports] = useState([]);
