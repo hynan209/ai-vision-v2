@@ -1,4 +1,0 @@
-conda activate vehicle_damage_env
-D:
-cd D:\AI VISION V1
-streamlit run web_app.py
