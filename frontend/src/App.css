@@ -170,3 +170,70 @@ h1, h2, h3, .vision-title, .kpi-value, .section-header, .menu-item, .cam-label, 
 .cam-name { font-size: 13px; font-weight: bold; color: #fff; }
 .cam-id { font-size: 11px; color: #8b949e; }
 .cam-status { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+
+/* Camera Grid Horizontal Scroll */
+.cam-grid-horizontal {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #00e5ff rgba(255,255,255,0.1);
+}
+
+.cam-grid-horizontal::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cam-grid-horizontal::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+.cam-grid-horizontal::-webkit-scrollbar-thumb {
+  background: #00e5ff;
+  border-radius: 10px;
+}
+
+.cam-thumbnail {
+  transition: all 0.2s ease;
+}
+
+.cam-thumbnail:hover {
+  transform: translateY(-4px);
+  border-color: #00e5ff !important;
+  box-shadow: 0 10px 20px rgba(0,229,255,0.1);
+}
+
+.cam-thumbnail.active {
+  border: 2px solid #00e5ff !important;
+  box-shadow: 0 0 15px rgba(0,229,255,0.3);
+}
+
+/* Đảm bảo main content có thể co giãn */
+.main-content {
+  flex: 1;
+  min-height: 0;  /* QUAN TRỌNG: cho phép flex con co giãn */
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Log container scroll đẹp */
+.log-container {
+  scrollbar-width: thin;
+  scrollbar-color: #00e5ff rgba(255,255,255,0.1);
+}
+
+.log-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.log-container::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+.log-container::-webkit-scrollbar-thumb {
+  background: #00e5ff;
+  border-radius: 10px;
+}
